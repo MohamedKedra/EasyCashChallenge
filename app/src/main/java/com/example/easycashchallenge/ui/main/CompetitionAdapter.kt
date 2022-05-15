@@ -1,4 +1,4 @@
-package com.example.easycashchallenge
+package com.example.easycashchallenge.ui.main
 
 import android.content.Context
 import android.view.LayoutInflater

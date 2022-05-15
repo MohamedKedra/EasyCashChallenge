@@ -5,8 +5,11 @@
       <map>
         <entry key="..\:/Users/Admin/AndroidStudioProjects/EasyCashChallenge/app/src/main/res/drawable/ic_default.xml" value="0.2" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/EasyCashChallenge/app/src/main/res/layout/compition_item_layout.xml" value="0.33" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/EasyCashChallenge/app/src/main/res/layout/compitition_fragment.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/EasyCashChallenge/app/src/main/res/layout/error_list_layout.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/EasyCashChallenge/app/src/main/res/layout/group_item_layout.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/EasyCashChallenge/app/src/main/res/layout/main_fragment.xml" value="0.33" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/EasyCashChallenge/app/src/main/res/layout/team_item_layout.xml" value="0.33" />
       </map>
     </option>
   </component>
