@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.easycashchallenge.base.BaseFragment
 import com.example.easycashchallenge.databinding.TeamFragmentBinding
 
-class TeamFragment(override val layoutId: View) : BaseFragment() {
+class TeamFragment : BaseFragment() {
 
     private lateinit var viewModel: TeamViewModel
     private lateinit var binding: TeamFragmentBinding

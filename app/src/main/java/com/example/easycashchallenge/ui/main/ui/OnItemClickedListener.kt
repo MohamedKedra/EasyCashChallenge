@@ -1,4 +1,4 @@
-package com.example.easycashchallenge.ui.main
+package com.example.easycashchallenge.ui.main.ui
 
 interface OnItemClickedListener {
 

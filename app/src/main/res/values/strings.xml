@@ -3,4 +3,6 @@
     <string name="retry">retry</string>
     <string name="current_season">Current Season:</string>
     <string name="last_winner">Last Winner:</string>
+    <string name="no_internet">No Internet</string>
+    <string name="error">Something went Wrong</string>
 </resources>
