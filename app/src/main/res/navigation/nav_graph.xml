@@ -14,13 +14,20 @@
             android:id="@+id/action_HomeFragment_to_CompetitionFragment"
             app:destination="@id/CompetitionFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/CompetitionFragment"
         android:name="com.example.easycashchallenge.ui.compitition.CompititionFragment"
         tools:layout="@layout/compitition_fragment">
 
+        <action
+            android:id="@+id/action_CompetitionFragment_to_TeamFragment"
+            app:destination="@id/TeamFragment" />
     </fragment>
 
-
+    <fragment
+        android:id="@+id/TeamFragment"
+        android:name="com.example.easycashchallenge.ui.team.TeamFragment"
+        tools:layout="@layout/team_fragment" />
 
 </navigation>

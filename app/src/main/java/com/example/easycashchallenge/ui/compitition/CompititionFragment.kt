@@ -4,18 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.easycashchallenge.R
+import com.example.easycashchallenge.base.BaseFragment
 import com.example.easycashchallenge.databinding.CompititionFragmentBinding
+import com.example.easycashchallenge.ui.team.OnTeamSelectedListener
 
-class CompititionFragment : Fragment() {
+class CompititionFragment(override val layoutId: View) : BaseFragment(), OnTeamSelectedListener {
 
     private lateinit var binding: CompititionFragmentBinding
     private lateinit var adapter: TeamAdapter
-
-    companion object {
-        fun newInstance() = CompititionFragment()
-    }
 
     private lateinit var viewModel: CompititionViewModel
 
@@ -36,9 +34,12 @@ class CompititionFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(CompititionViewModel::class.java)
 
         with(binding) {
-            adapter = TeamAdapter(requireContext())
+            adapter = TeamAdapter(requireContext(), this@CompititionFragment)
             rvTeams.adapter = adapter
         }
     }
 
+    override fun onTeamSelected() {
+        navigationController.navigate(R.id.action_CompetitionFragment_to_TeamFragment)
+    }
 }
