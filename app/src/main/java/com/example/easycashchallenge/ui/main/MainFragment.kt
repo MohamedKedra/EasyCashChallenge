@@ -1,18 +1,18 @@
 package com.example.easycashchallenge.ui.main
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.example.easycashchallenge.R
+import com.example.easycashchallenge.base.BaseFragment
+import com.example.easycashchallenge.databinding.MainFragmentBinding
 
-class MainFragment : Fragment() {
+class MainFragment : BaseFragment(), OnItemClickedListener {
 
-    companion object {
-        fun newInstance() = MainFragment()
-    }
+    private lateinit var binding: MainFragmentBinding
+    private lateinit var competitionAdapter: CompetitionAdapter
 
     private lateinit var viewModel: MainViewModel
 
@@ -20,13 +20,24 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        binding =
+            MainFragmentBinding.inflate(LayoutInflater.from(requireContext()), container, false)
+        return binding.root
     }
+
+    override val layoutId: View
+        get() = binding.root
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
+        with(binding) {
+            competitionAdapter = CompetitionAdapter(requireContext(), this@MainFragment)
+            rvCompetition.adapter = competitionAdapter
+        }
     }
 
+    override fun onItemClicked() {
+        navigationController.navigate(R.id.action_HomeFragment_to_CompetitionFragment)
+    }
 }
