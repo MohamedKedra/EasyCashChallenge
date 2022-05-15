@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/HomeFragment">
+
+    <fragment
+        android:id="@+id/HomeFragment"
+        android:name="com.example.easycashchallenge.ui.main.MainFragment"
+        tools:layout="@layout/main_fragment">
+
+        <action
+            android:id="@+id/action_HomeFragment_to_CompetitionFragment"
+            app:destination="@id/CompetitionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/CompetitionFragment"
+        android:name="com.example.easycashchallenge.ui.compitition.CompititionFragment"
+        tools:layout="@layout/compitition_fragment">
+
+    </fragment>
+
+
+
+</navigation>

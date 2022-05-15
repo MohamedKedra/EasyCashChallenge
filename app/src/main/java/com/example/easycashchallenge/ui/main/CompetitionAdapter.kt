@@ -6,11 +6,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.easycashchallenge.databinding.CompitionItemLayoutBinding
 
-class CompetitionAdapter(private val context: Context) :
+class CompetitionAdapter(
+    private val context: Context,
+    private val onItemClickedListener: OnItemClickedListener
+) :
     RecyclerView.Adapter<CompetitionAdapter.CompetitionHolder>() {
 
     inner class CompetitionHolder(private val binding: CompitionItemLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root)
+        RecyclerView.ViewHolder(binding.root) {
+        init {
+            itemView.setOnClickListener {
+                onItemClickedListener.onItemClicked()
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CompetitionHolder {
         val binding =

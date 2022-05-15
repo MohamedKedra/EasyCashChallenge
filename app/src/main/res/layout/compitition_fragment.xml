@@ -1,104 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.compitition.CompititionFragment">
+    android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/compInfo"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        tools:context=".ui.compitition.CompititionFragment">
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/compInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivEmblem"
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
-                android:layout_margin="@dimen/margin_8"
-                android:src="@drawable/ic_default" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvCompetitionName"
-                android:layout_width="wrap_content"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Word Cup"
-                android:textColor="@color/purple_700"
-                android:textSize="@dimen/title_20" />
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivEmblem"
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_margin="@dimen/margin_8"
+                    android:src="@drawable/ic_default" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvCompetitionName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Word Cup"
+                    android:textColor="@color/purple_700"
+                    android:textSize="@dimen/title_20" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_16"
+                android:orientation="horizontal">
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/current_season" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvSeason"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_8"
+                    android:text="2022-03-11 : 2022-09-01" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:orientation="horizontal">
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/last_winner" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivTeamSeason"
+                    android:layout_width="@dimen/small_icon_size"
+                    android:layout_height="@dimen/small_icon_size"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin_8"
+                    android:src="@drawable/ic_default" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvTeamSeasonName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="France"
+                    android:textColor="@color/purple_700" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_16"
-            android:orientation="horizontal">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/compInfo">
 
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTeams"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/current_season" />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/team_item_layout" />
 
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvSeason"
-                android:layout_width="wrap_content"
+            <include
+                layout="@layout/error_list_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="2022-03-11 : 2022-09-01"
-                android:layout_marginHorizontal="@dimen/margin_8"/>
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </RelativeLayout>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_16"
-            android:orientation="horizontal">
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/last_winner" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivTeamSeason"
-                android:layout_width="@dimen/small_icon_size"
-                android:layout_height="@dimen/small_icon_size"
-                android:layout_margin="@dimen/margin_8"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_default" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvTeamSeasonName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="France"
-                android:textColor="@color/purple_700" />
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/compInfo"
-        app:layout_constraintStart_toStartOf="parent"
-        android:id="@+id/rvTeams"
-        tools:listitem="@layout/team_item_layout"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
