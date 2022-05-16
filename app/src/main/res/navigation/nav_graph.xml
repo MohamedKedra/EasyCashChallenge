@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/CompetitionFragment"
-        android:name="com.example.easycashchallenge.ui.compitition.CompititionFragment"
+        android:name="com.example.easycashchallenge.ui.compitition.ui.CompititionFragment"
         tools:layout="@layout/compitition_fragment">
 
         <action

@@ -25,6 +25,5 @@ abstract class BaseFragment : Fragment() {
         tvIssue.isVisible = hasIssue
         tvIssue.text = txt
         btnIssue.isVisible = hasIssue
-
     }
 }

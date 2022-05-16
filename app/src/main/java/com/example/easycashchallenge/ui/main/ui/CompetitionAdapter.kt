@@ -32,7 +32,7 @@ class CompetitionAdapter(
 
         init {
             itemView.setOnClickListener {
-                onItemClickedListener.onItemClicked()
+                onItemClickedListener.onItemClicked(competitions[adapterPosition].id)
             }
         }
     }

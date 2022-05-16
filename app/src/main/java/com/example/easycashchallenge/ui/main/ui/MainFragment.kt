@@ -1,6 +1,7 @@
 package com.example.easycashchallenge.ui.main.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,8 @@ import com.example.easycashchallenge.base.DataState
 import com.example.easycashchallenge.databinding.MainFragmentBinding
 import com.example.easycashchallenge.network.models.Competition
 import com.example.easycashchallenge.ui.main.viewmodel.MainViewModel
+import com.example.easycashchallenge.utils.Constants
+import kotlinx.android.synthetic.main.error_list_layout.*
 import org.koin.android.ext.android.inject
 
 class MainFragment : BaseFragment(), OnItemClickedListener {
@@ -34,6 +37,10 @@ class MainFragment : BaseFragment(), OnItemClickedListener {
             observeCompetitions()
             competitionAdapter = CompetitionAdapter(requireContext(), this@MainFragment)
             rvCompetition.adapter = competitionAdapter
+
+            btnIssue.setOnClickListener {
+                observeCompetitions()
+            }
         }
     }
 
@@ -60,7 +67,10 @@ class MainFragment : BaseFragment(), OnItemClickedListener {
         }
     }
 
-    override fun onItemClicked() {
-        navigationController.navigate(R.id.action_HomeFragment_to_CompetitionFragment)
+    override fun onItemClicked(id: Int?) {
+        val bundle = Bundle()
+        bundle.putInt(Constants.Const.CompetitionId, id.toString().toInt())
+        Log.d("id",id.toString())
+        navigationController.navigate(R.id.action_HomeFragment_to_CompetitionFragment, bundle)
     }
 }
