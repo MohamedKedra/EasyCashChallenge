@@ -3,4 +3,7 @@
     <string name="retry">retry</string>
     <string name="current_season">Current Season:</string>
     <string name="last_winner">Last Winner:</string>
+    <string name="no_internet">No Internet</string>
+    <string name="error">Something went Wrong</string>
+    <string name="error_paid">The resource you are looking for is restricted. Please pass a valid API token and check your subscription for permission.</string>
 </resources>
