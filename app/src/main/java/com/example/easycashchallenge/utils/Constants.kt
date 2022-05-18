@@ -16,6 +16,7 @@ class Constants {
         const val appDB = "teams_database"
         const val teamTable = "teams_table"
         const val competitionTable = "competitions_table"
+        const val competitionIdsTable = "competition_ids_table"
     }
 
     object APICaching{
