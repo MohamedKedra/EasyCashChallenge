@@ -15,7 +15,7 @@ class CompetitionRepository(appService: AppService, private val appDao: AppDao) 
     fun getAllTeams(id: Int): Single<AllTeamsResponse> =
         appService.getAllTeams(Constants.API.token, id = id)
 
-    fun getAllCachedTeams(): LiveData<List<Team>> = appDao.getAllTeams()
+    fun getAllCachedTeams(): Single<List<Team>> = appDao.getAllTeams()
 
     fun cacheTeams(teams: List<Team>) = appDao.addAllTeams(teams)
 }

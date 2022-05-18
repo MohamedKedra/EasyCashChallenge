@@ -21,8 +21,8 @@ interface AppDao {
     fun addAllCompetitions(competitions: List<Competition>): Completable
 
     @Query("select * from ${Constants.DB.teamTable}")
-    fun getAllTeams(): LiveData<List<Team>>
+    fun getAllTeams(): Single<List<Team>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addAllTeams(teams: List<Team>)
+    fun addAllTeams(teams: List<Team>) : Completable
 }

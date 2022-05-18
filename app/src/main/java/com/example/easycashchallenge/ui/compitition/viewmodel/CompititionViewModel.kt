@@ -6,8 +6,13 @@ import com.example.easycashchallenge.base.LiveDataState
 import com.example.easycashchallenge.network.models.AllTeamsResponse
 import com.example.easycashchallenge.network.models.Team
 import com.example.easycashchallenge.ui.compitition.repository.CompetitionRepository
+import com.example.easycashchallenge.ui.main.ui.OnDataInsertedListener
+import com.example.easycashchallenge.utils.Status
+import io.reactivex.CompletableObserver
+import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
@@ -18,64 +23,78 @@ class CompititionViewModel(
     connectivityManager
 ) {
 
-    private var dataList = LiveDataState<AllTeamsResponse>()
+    private lateinit var onDataInsertedListener: OnDataInsertedListener
+    private var dataList = LiveDataState<List<Team>>()
     private val disposable = CompositeDisposable()
 
-    private var cachedTeams = LiveDataState<List<Team>>()
+    fun setListener(onDataInsertedListener: OnDataInsertedListener) {
+        this.onDataInsertedListener = onDataInsertedListener
+    }
 
-    fun refreshCompetitionInfo(CompetitionId: Int): LiveDataState<AllTeamsResponse> {
+    fun cacheTeams(teams: List<Team>) {
 
-        if (!isNetworkAvailable) {
-            publishNoInternet(dataList)
-            return dataList
-        }
+        repository.cacheTeams(teams)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : CompletableObserver {
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onComplete() {
+                    onDataInsertedListener.onInsert(Status.success)
+                }
+
+                override fun onError(e: Throwable) {
+                    onDataInsertedListener.onInsert(Status.fail, msg = e.message)
+                }
+
+            })
+    }
+
+    fun refreshTeams(competitionId: Int): LiveDataState<List<Team>> {
 
         publishLoading(dataList)
 
-        disposable.add(
-            repository.getAllTeams(id = CompetitionId).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribeWith(
-                    object : DisposableSingleObserver<AllTeamsResponse>() {
-                        override fun onSuccess(response: AllTeamsResponse) {
-                            publishResult(dataList, response)
-                        }
+        if (isNetworkAvailable) {
 
-                        override fun onError(error: Throwable) {
-                            publishError(dataList, error)
-                        }
-                    }
-                )
-        )
-
-        return dataList
-    }
-
-
-    fun getCachedTeams(CompetitionId: Int): LiveDataState<List<Team>> {
-
-        publishLoading(cachedTeams)
-
-        val teams = repository.getAllCachedTeams().value
-        if (!teams.isNullOrEmpty()) {
-            publishResult(cachedTeams, teams)
-        } else {
             disposable.add(
-                repository.getAllTeams(id = CompetitionId).subscribeOn(Schedulers.io())
+                repository.getAllTeams(id = competitionId).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread()).subscribeWith(
                         object : DisposableSingleObserver<AllTeamsResponse>() {
                             override fun onSuccess(response: AllTeamsResponse) {
-                                publishResult(cachedTeams, response.teams as List<Team>)
+                                response.teams?.let { list ->
+                                    cacheTeams(list)
+                                    publishResult(dataList, list)
+                                }
                             }
 
                             override fun onError(error: Throwable) {
-                                publishError(cachedTeams, error)
+                                publishError(dataList, error)
                             }
                         }
                     )
             )
+
+        } else {
+            repository.getAllCachedTeams()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : SingleObserver<List<Team>> {
+                    override fun onSubscribe(d: Disposable) {
+
+                    }
+
+                    override fun onError(e: Throwable) {
+                        publishError(dataList, e)
+                    }
+
+                    override fun onSuccess(t: List<Team>) {
+                        publishResult(dataList, t)
+                    }
+                })
         }
 
-        return cachedTeams
+        return dataList
     }
-
 }
