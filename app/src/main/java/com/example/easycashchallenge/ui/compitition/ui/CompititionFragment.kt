@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import com.bumptech.glide.Glide
 import com.example.easycashchallenge.R
 import com.example.easycashchallenge.base.BaseFragment
 import com.example.easycashchallenge.base.DataState
 import com.example.easycashchallenge.databinding.CompititionFragmentBinding
+import com.example.easycashchallenge.network.models.Competition
 import com.example.easycashchallenge.network.models.Team
 import com.example.easycashchallenge.ui.compitition.viewmodel.CompititionViewModel
 import com.example.easycashchallenge.ui.team.OnTeamSelectedListener
@@ -52,9 +54,9 @@ class CompititionFragment : BaseFragment(), OnTeamSelectedListener {
     }
 
     private fun observeTeams() {
-        val id = arguments?.getInt(Constants.Const.CompetitionId)
-        if (id != null) {
-            viewModel.refreshCompetitionInfo(id).observe(viewLifecycleOwner) {
+        val competition: Competition? = arguments?.getParcelable(Constants.Const.Competition)
+        if (competition != null) {
+            viewModel.getCachedTeams(id).observe(viewLifecycleOwner) {
                 when (it.getStatus()) {
                     DataState.DataStatus.LOADING -> {
                         rvTeams.isVisible = false
@@ -65,15 +67,11 @@ class CompititionFragment : BaseFragment(), OnTeamSelectedListener {
                         rvTeams.isVisible = true
                         compInfo.isVisible = true
                         showOrHideLoading()
-                        it.getData()?.competition?.let { comp ->
-                            tvCompetitionName.text = comp.name
-                        }
 
-                        it.getData()?.season?.let { season ->
-                            tvSeason.text = season.startDate?.plus(":")?.plus(season.endDate)
-                        }
+                        tvCompetitionName.text = competition.name
+                        Glide.with(requireContext()).load(competition.emblemUrl).into(ivEmblem)
 
-                        it.getData()?.teams?.let { list ->
+                        it.getData()?.let { list ->
                             adapter.setTeams(list as ArrayList<Team>)
                             adapter.notifyDataSetChanged()
                         }
@@ -95,6 +93,8 @@ class CompititionFragment : BaseFragment(), OnTeamSelectedListener {
 
     override fun onTeamSelected(team: Team) {
 
+        val bundle = Bundle()
+        bundle.putParcelable(Constants.Const.Team,team)
         navigationController.navigate(R.id.action_CompetitionFragment_to_TeamFragment)
     }
 }

@@ -7,7 +7,7 @@ import org.koin.dsl.module
 val competitionModule = module {
 
     single {
-        CompetitionRepository(get())
+        CompetitionRepository(get(), get())
     }
 
     single {

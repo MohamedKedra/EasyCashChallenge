@@ -1,40 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/margin_16"
-    android:layout_marginVertical="@dimen/margin_8">
+    android:layout_margin="@dimen/margin_8"
+    app:cardCornerRadius="@dimen/margin_16">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivTeamFlag"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
-        android:layout_margin="@dimen/margin_8"
-        android:src="@drawable/ic_default"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvTeamName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Word Cup"
-        android:textColor="@color/purple_700"
-        android:textSize="@dimen/title_20"
-        app:layout_constraintStart_toEndOf="@id/ivTeamFlag"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginVertical="@dimen/margin_8"
-        android:layout_marginHorizontal="@dimen/margin_8"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivTeamFlag"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:layout_margin="@dimen/margin_8"
+            android:src="@drawable/ic_default"
+            android:fitsSystemWindows="true"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvTeamCode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="WC"
-        android:layout_marginHorizontal="@dimen/margin_8"
-        app:layout_constraintStart_toEndOf="@id/ivTeamFlag"
-        app:layout_constraintTop_toBottomOf="@id/tvTeamName" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTeamName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Word Cup"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/purple_700"
+            android:textSize="@dimen/title_20"
+            android:layout_marginHorizontal="@dimen/margin_8" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTeamCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="WC"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginVertical="@dimen/margin_8"
+            android:layout_marginHorizontal="@dimen/margin_8"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.cardview.widget.CardView>

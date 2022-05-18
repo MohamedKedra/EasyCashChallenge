@@ -67,10 +67,9 @@ class MainFragment : BaseFragment(), OnItemClickedListener {
         }
     }
 
-    override fun onItemClicked(id: Int?) {
+    override fun onItemClicked(competition: Competition) {
         val bundle = Bundle()
-        bundle.putInt(Constants.Const.CompetitionId, id.toString().toInt())
-        Log.d("id",id.toString())
+        bundle.putParcelable(Constants.Const.Competition, competition)
         navigationController.navigate(R.id.action_HomeFragment_to_CompetitionFragment, bundle)
     }
 }

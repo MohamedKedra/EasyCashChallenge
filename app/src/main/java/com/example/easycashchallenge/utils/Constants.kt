@@ -8,6 +8,25 @@ class Constants {
     }
 
     object Const {
-        const val CompetitionId = "id"
+        const val Competition = "competition"
+        const val Team = "team"
+    }
+
+    object DB {
+        const val appDB = "teams_database"
+        const val teamTable = "teams_table"
+    }
+
+    object APICaching{
+        const val headerCacheControl = "Cache-Control"
+        const val headerPargma = "Pragma"
+        const val offlineCache = "offlineCache"
+    }
+
+    object Converter{
+        const val id = "id"
+        const val name = "name"
+        const val countryCode = "countryCode"
+        const val ensignUrl = "ensignUrl"
     }
 }
