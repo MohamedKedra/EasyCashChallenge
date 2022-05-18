@@ -10,9 +10,9 @@
         android:id="@+id/cv_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="16dp"
-        android:elevation="16dp"
-        app:cardCornerRadius="16dp">
+        android:layout_margin="@dimen/margin_16"
+        android:elevation="@dimen/margin_16"
+        app:cardCornerRadius="@dimen/margin_16">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -21,10 +21,10 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_avatar"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
                 android:layout_gravity="center"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/margin_8"
                 android:adjustViewBounds="true"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop" />
@@ -36,70 +36,53 @@
                 android:layout_gravity="center"
                 android:layout_margin="8dp"
                 android:gravity="center"
-                android:textSize="20sp" />
+                android:textSize="@dimen/title_20" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_venue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="8dp"
+                android:layout_margin="@dimen/margin_8"
                 android:gravity="center"
-                android:textSize="18sp" />
+                android:textSize="@dimen/text_16" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_8"
+                android:gravity="center"
+                android:textSize="@dimen/text_16" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_8"
+                android:gravity="center"
+                android:textSize="@dimen/text_16" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_founded"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_8"
+                android:gravity="center"
+                android:textSize="@dimen/text_16" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="8dp"
+                android:layout_margin="@dimen/margin_8"
                 android:gravity="center"
-                android:textSize="16sp" />
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/lay_expanded"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="8dp"
-                    android:layout_weight="1"
-                    android:gravity="start"
-                    android:text="Team Squad"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/iv_arrow"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginEnd="16dp"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/ic_default" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.coordinatorlayout.widget.CoordinatorLayout
-                android:id="@+id/lay_players"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ProgressBar
-                    android:id="@+id/pb_progressbar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"/>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_players"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                android:textSize="@dimen/text_16" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -112,7 +95,9 @@
         android:layout_gravity="center"
         android:layout_margin="@dimen/margin_16"
         android:gravity="center"
-        android:text="Website"
+        android:text="@string/website"
+        android:background="@color/purple_500"
+        android:textColor="@color/white"
         android:textAllCaps="false"
         app:layout_anchor="@id/cv_container"
         app:layout_anchorGravity="bottom"

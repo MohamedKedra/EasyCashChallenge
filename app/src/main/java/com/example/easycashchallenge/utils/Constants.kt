@@ -15,6 +15,7 @@ class Constants {
     object DB {
         const val appDB = "teams_database"
         const val teamTable = "teams_table"
+        const val competitionTable = "competitions_table"
     }
 
     object APICaching{
@@ -28,5 +29,8 @@ class Constants {
         const val name = "name"
         const val countryCode = "countryCode"
         const val ensignUrl = "ensignUrl"
+        const val currentMatchday = "currentMatchday"
+        const val startDate = "startDate"
+        const val endDate = "endDate"
     }
 }

@@ -5,4 +5,5 @@
     <dimen name="small_icon_size">24dp</dimen>
     <dimen name="margin_8">8dp</dimen>
     <dimen name="title_20">20sp</dimen>
+    <dimen name="text_16">16sp</dimen>
 </resources>

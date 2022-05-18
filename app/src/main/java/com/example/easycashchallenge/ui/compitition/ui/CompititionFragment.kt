@@ -56,7 +56,7 @@ class CompititionFragment : BaseFragment(), OnTeamSelectedListener {
     private fun observeTeams() {
         val competition: Competition? = arguments?.getParcelable(Constants.Const.Competition)
         if (competition != null) {
-            viewModel.getCachedTeams(id).observe(viewLifecycleOwner) {
+            viewModel.getCachedTeams(competition.id.toString().toInt()).observe(viewLifecycleOwner) {
                 when (it.getStatus()) {
                     DataState.DataStatus.LOADING -> {
                         rvTeams.isVisible = false
@@ -95,6 +95,6 @@ class CompititionFragment : BaseFragment(), OnTeamSelectedListener {
 
         val bundle = Bundle()
         bundle.putParcelable(Constants.Const.Team,team)
-        navigationController.navigate(R.id.action_CompetitionFragment_to_TeamFragment)
+        navigationController.navigate(R.id.action_CompetitionFragment_to_TeamFragment,bundle)
     }
 }

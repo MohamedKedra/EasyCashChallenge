@@ -8,10 +8,10 @@ class AreaTypeConverter {
     @TypeConverter
     fun fromSource(area: Area): String {
         return JSONObject().apply {
-            put(Constants.Converter.id, area.id)
-            put(Constants.Converter.name, area.name)
-            put(Constants.Converter.countryCode, area.countryCode)
-            put(Constants.Converter.ensignUrl, area.ensignUrl)
+            put(Constants.Converter.id, area.id ?: 0)
+            put(Constants.Converter.name, area.name ?: "")
+            put(Constants.Converter.countryCode, area.countryCode ?: "")
+            put(Constants.Converter.ensignUrl, area.ensignUrl ?: "")
         }.toString()
     }
 
@@ -20,9 +20,9 @@ class AreaTypeConverter {
         val json = JSONObject(source)
         return Area(
             json.getInt(Constants.Converter.id),
-            json.getString(Constants.Converter.name),
-            json.getString(Constants.Converter.countryCode),
-            json.getString(Constants.Converter.ensignUrl)
+            json.getString(Constants.Converter.name) ?: "",
+            json.getString(Constants.Converter.countryCode) ?: "",
+            json.getString(Constants.Converter.ensignUrl) ?: ""
         )
     }
 }
