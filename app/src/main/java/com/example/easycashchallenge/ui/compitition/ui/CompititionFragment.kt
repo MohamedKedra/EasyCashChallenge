@@ -4,20 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
+import com.bumptech.glide.Glide
 import com.example.easycashchallenge.R
 import com.example.easycashchallenge.base.BaseFragment
 import com.example.easycashchallenge.base.DataState
 import com.example.easycashchallenge.databinding.CompititionFragmentBinding
+import com.example.easycashchallenge.network.models.Competition
 import com.example.easycashchallenge.network.models.Team
 import com.example.easycashchallenge.ui.compitition.viewmodel.CompititionViewModel
+import com.example.easycashchallenge.ui.main.ui.OnDataInsertedListener
 import com.example.easycashchallenge.ui.team.OnTeamSelectedListener
 import com.example.easycashchallenge.utils.Constants
+import com.example.easycashchallenge.utils.Status
 import kotlinx.android.synthetic.main.compitition_fragment.*
 import kotlinx.android.synthetic.main.error_list_layout.*
 import org.koin.android.ext.android.inject
 
-class CompititionFragment : BaseFragment(), OnTeamSelectedListener {
+class CompititionFragment : BaseFragment(), OnTeamSelectedListener , OnDataInsertedListener {
 
     private lateinit var binding: CompititionFragmentBinding
     private lateinit var adapter: TeamAdapter
@@ -39,6 +44,8 @@ class CompititionFragment : BaseFragment(), OnTeamSelectedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.setListener(this)
+
         with(binding) {
 
             observeTeams()
@@ -52,9 +59,9 @@ class CompititionFragment : BaseFragment(), OnTeamSelectedListener {
     }
 
     private fun observeTeams() {
-        val id = arguments?.getInt(Constants.Const.CompetitionId)
-        if (id != null) {
-            viewModel.refreshCompetitionInfo(id).observe(viewLifecycleOwner) {
+        val competition: Competition? = arguments?.getParcelable(Constants.Const.Competition)
+        if (competition != null) {
+            viewModel.refreshTeams(competition.id.toString().toInt()).observe(viewLifecycleOwner) {
                 when (it.getStatus()) {
                     DataState.DataStatus.LOADING -> {
                         rvTeams.isVisible = false
@@ -65,15 +72,11 @@ class CompititionFragment : BaseFragment(), OnTeamSelectedListener {
                         rvTeams.isVisible = true
                         compInfo.isVisible = true
                         showOrHideLoading()
-                        it.getData()?.competition?.let { comp ->
-                            tvCompetitionName.text = comp.name
-                        }
 
-                        it.getData()?.season?.let { season ->
-                            tvSeason.text = season.startDate?.plus(":")?.plus(season.endDate)
-                        }
+                        tvCompetitionName.text = competition.name
+                        Glide.with(requireContext()).load(competition.emblemUrl).into(ivEmblem)
 
-                        it.getData()?.teams?.let { list ->
+                        it.getData()?.let { list ->
                             adapter.setTeams(list as ArrayList<Team>)
                             adapter.notifyDataSetChanged()
                         }
@@ -95,6 +98,20 @@ class CompititionFragment : BaseFragment(), OnTeamSelectedListener {
 
     override fun onTeamSelected(team: Team) {
 
-        navigationController.navigate(R.id.action_CompetitionFragment_to_TeamFragment)
+        val bundle = Bundle()
+        bundle.putParcelable(Constants.Const.Team,team)
+        navigationController.navigate(R.id.action_CompetitionFragment_to_TeamFragment,bundle)
+    }
+
+    override fun onInsert(status: Status, msg: String?) {
+        when (status) {
+            Status.success -> {
+                Toast.makeText(requireContext(), getString(R.string.add_data), Toast.LENGTH_LONG)
+                    .show()
+            }
+            Status.fail -> {
+                Toast.makeText(requireContext(), msg, Toast.LENGTH_LONG).show()
+            }
+        }
     }
 }

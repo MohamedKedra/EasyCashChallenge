@@ -8,7 +8,7 @@ val mainModule = module {
 
 
     single {
-        MainRepository(get())
+        MainRepository(get(), get())
     }
 
 
