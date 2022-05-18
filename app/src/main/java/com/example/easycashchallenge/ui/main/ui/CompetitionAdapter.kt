@@ -4,7 +4,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.ImageLoader
+import coil.decode.SvgDecoder
+import coil.request.ImageRequest
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.easycashchallenge.R
 import com.example.easycashchallenge.databinding.CompitionItemLayoutBinding
 import com.example.easycashchallenge.network.models.Competition
@@ -21,9 +25,29 @@ class CompetitionAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(competition: Competition) {
             with(binding) {
-                Glide.with(context).load(competition.emblemUrl)
-                    .placeholder(R.drawable.ic_default)
-                    .into(ivEmblem)
+
+                competition.emblemUrl?.let {  url ->
+
+                    if (url.endsWith(".png")) {
+                        Glide.with(context).load(url)
+                            .placeholder(R.drawable.ic_loading)
+                            .error(R.drawable.ic_launcher_background)
+                            .fitCenter()
+                            .into(ivEmblem)
+                    } else {
+                        val imageLoader = ImageLoader.Builder(context)
+                            .componentRegistry {
+                                add(SvgDecoder(context))
+                            }.build()
+                        val request = ImageRequest.Builder(context).apply {
+                            placeholder(R.drawable.ic_loading)
+                            error(R.drawable.ic_launcher_background)
+                            data(url).decoder(SvgDecoder(context))
+                        }.target(ivEmblem).build()
+                        imageLoader.enqueue(request)
+                    }
+                }
+
                 tvCompetitionName.text = competition.name
                 tvCompetitionCode.text = competition.code
                 tvSeasons.text = competition.numberOfAvailableSeasons.toString()
@@ -40,6 +64,7 @@ class CompetitionAdapter(
     fun setCompetitions(competitions: ArrayList<Competition>) {
         this.competitions = competitions
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CompetitionHolder {
         val binding =

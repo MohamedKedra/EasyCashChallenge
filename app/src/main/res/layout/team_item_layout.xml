@@ -17,7 +17,6 @@
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
             android:layout_margin="@dimen/margin_8"
-            android:src="@drawable/ic_default"
             android:fitsSystemWindows="true"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"

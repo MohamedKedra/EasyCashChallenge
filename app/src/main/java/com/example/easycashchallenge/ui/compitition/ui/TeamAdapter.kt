@@ -1,10 +1,12 @@
 package com.example.easycashchallenge.ui.compitition.ui
 
-import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.ImageLoader
+import coil.decode.SvgDecoder
+import coil.request.ImageRequest
 import com.bumptech.glide.Glide
 import com.example.easycashchallenge.R
 import com.example.easycashchallenge.databinding.TeamItemLayoutBinding
@@ -26,10 +28,20 @@ class TeamAdapter(
                 team.crestUrl?.let { url ->
 
                     if (url.endsWith(".png")) {
-                        Glide.with(context).load(url).placeholder(R.drawable.ic_default)
+                        Glide.with(context).load(url).placeholder(R.drawable.ic_loading)
+                            .error(R.drawable.ic_default)
                             .into(ivTeamFlag)
                     } else {
-
+                        val imageLoader = ImageLoader.Builder(context)
+                            .componentRegistry {
+                                add(SvgDecoder(context))
+                            }.build()
+                        val request = ImageRequest.Builder(context).apply {
+                            placeholder(R.drawable.ic_loading)
+                            error(R.drawable.ic_default)
+                            data(url).decoder(SvgDecoder(context))
+                        }.target(ivTeamFlag).build()
+                        imageLoader.enqueue(request)
                     }
                 }
                 tvTeamName.text = team.name
